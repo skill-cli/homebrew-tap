@@ -1,8 +1,8 @@
 class SkillCli < Formula
   desc "Native skill CLI for installing and watching agent skills"
   homepage "https://github.com/skill-cli/cli"
-  url "https://github.com/skill-cli/cli/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "6dd59cd88e31efe5125f4e870259bdc2193c4d48fbc4fb7647bc2698cc6be611"
+  url "https://github.com/skill-cli/cli/archive/refs/tags/v0.2.1.tar.gz"
+  sha256 "ec93b0c22c933b51aadd2f32c03e239371465a6027dd7230df67715b001ef066"
   license "MIT"
   head "https://github.com/skill-cli/cli.git", branch: "master"
 
