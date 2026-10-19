@@ -27,8 +27,8 @@
 
 ## Overview
 
-This tap distributes [skill](https://github.com/skill-cli/cli), which
-installs, locks and updates agent skills.
+This tap distributes [skill](https://github.com/skill-cli/cli), which installs
+and updates agent skills, resolved to exact versions.
 [Formula/skill-cli.rb](Formula/skill-cli.rb) builds the upstream `skill`
 SwiftPM product and installs the `skill` executable plus the `swift-skill`
 driver shim.
