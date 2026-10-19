@@ -1,8 +1,8 @@
 class SkillCli < Formula
   desc "Install and update agent skills, resolved to exact versions"
   homepage "https://github.com/skill-cli/cli"
-  url "https://github.com/skill-cli/cli/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "d3f77126cba548ff6397f8983ede95db7491749ea9151f1a4d10f83db507b11f"
+  url "https://github.com/skill-cli/cli/archive/refs/tags/v0.3.1.tar.gz"
+  sha256 "1777948c634f4c3b8dccf36c6bb7e2d2d790c761e51ad764b30415c29aa0c4eb"
   license "MIT"
   head "https://github.com/skill-cli/cli.git", branch: "master"
 
