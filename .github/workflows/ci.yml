@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  homebrew:
+    runs-on: macos-26
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOMEBREW_NO_INSTALL_FROM_API: '1'
+      HOMEBREW_NO_ANALYTICS: '1'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Tap this checkout
+        run: |
+          tap_directory="$(brew --repository)/Library/Taps/skill-cli/homebrew-tap"
+          test ! -e "$tap_directory"
+          test ! -L "$tap_directory"
+          mkdir -p "$(dirname "$tap_directory")"
+          ln -s "$GITHUB_WORKSPACE" "$tap_directory"
+          brew tap
+      - name: Validate formulae and test pull request changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          changed_formulae=''
+          if [[ "$EVENT_NAME" == pull_request ]]; then
+            changed_formulae=$(git diff --name-only --diff-filter=ACMR "$BASE_SHA...$HEAD_SHA" -- 'Formula/*.rb')
+          fi
+          for formula in Formula/*.rb; do
+            name="skill-cli/tap/$(basename "$formula" .rb)"
+            brew style "$name"
+            brew audit --strict "$name"
+            if grep -Fxq "$formula" <<< "$changed_formulae"; then
+              brew install --build-from-source "$name"
+              brew test "$name"
+            fi
+          done
