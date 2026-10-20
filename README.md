@@ -107,6 +107,38 @@ manually. Source policy runs separately, including on pull request title edits.
 The required contexts are `policy / policy` and `homebrew`, as declared in
 [family maintenance](https://github.com/agents-tools/.github/blob/master/MAINTENANCE.md#activation-and-required-checks).
 
+## Social preview
+
+CI also calls `skill-cli/.github`'s presentation workflow from job
+`presentation`, with no inputs or dependencies. It compares the committed
+[social preview](.github/assets/social-preview/social-preview.png) with a fresh
+render from that standard's DESIGN, fonts and catalog at its workflow pin. The
+icon is the catalog's light-page image, resolved to the standard's
+`profile/assets/icon-dark.png`. The context is `presentation / presentation`; its
+required-check activation follows a passing real PR run.
+
+For local regeneration, prepare the pinned [toolchain package][toolchain] and
+the standard inputs at the CI pin as `toolchain_dir` and `standard_dir`. Keep
+temporary files outside this checkout. Then run:
+
+```sh
+node "$toolchain_dir/src/cli.ts" social-preview render \
+  --design "$standard_dir/DESIGN.md" --fonts "$standard_dir/Brand/Fonts" \
+  --catalog "$standard_dir/profile/catalog.json" --repository homebrew-tap \
+  --icon "$standard_dir/profile/assets/icon-dark.png" \
+  --out .github/assets/social-preview/social-preview.png
+node "$toolchain_dir/src/cli.ts" social-preview check \
+  --design "$standard_dir/DESIGN.md" --fonts "$standard_dir/Brand/Fonts" \
+  --catalog "$standard_dir/profile/catalog.json" --repository homebrew-tap \
+  --icon "$standard_dir/profile/assets/icon-dark.png" --assets .github/assets/social-preview
+```
+
+On drift, CI uploads artifact `presentation` containing `presentation.tar`.
+Extract it with `tar -xf presentation.tar -C .github/assets`, review and commit
+the PNG.
+
+[toolchain]: https://github.com/showxu/skills/blob/e5a50c34bf66264a436288f96e44db9caa305912/skills/github-readme-design/references/renderers.md#local-regeneration
+
 ## Contributing
 
 Read the shared [organization guide](https://github.com/agents-tools/.github/blob/master/CONTRIBUTING.md)

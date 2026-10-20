@@ -20,3 +20,7 @@ the shared [maintenance change flow](https://github.com/agents-tools/.github/blo
 - The tap distributes upstream releases and has no release tags of its own.
   Formula updates follow the
   [skill release checklist](https://github.com/skill-cli/cli/blob/master/Documentation/Reference/Release.md).
+- Check the committed social preview with the `skill-cli/.github` standard
+  pinned by `presentation` in CI; the README owns its local render/check loop.
+  Keep caller ID `presentation` without inputs or dependencies. Its required
+  context is activated only after a passing real PR run.
