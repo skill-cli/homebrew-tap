@@ -10,7 +10,9 @@ from a task worktree on macOS. Validate every formula with `brew style` and
 also need a source installation and `brew test` in the disposable environment
 described by the
 [skill release checklist](https://github.com/skill-cli/cli/blob/master/Documentation/Reference/Release.md).
-Workflow edits need `actionlint` or a YAML parse of every workflow.
+Workflow edits need `actionlint` or a YAML parse of every workflow. Also run
+the [social-preview check](README.md#social-preview) using the pinned
+organization standard.
 
 Include the commands and results with the change. The required CI contexts
 are `policy / policy` and `homebrew`; see

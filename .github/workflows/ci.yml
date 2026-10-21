@@ -59,3 +59,6 @@ jobs:
               brew test "$name"
             fi
           done
+
+  presentation:
+    uses: skill-cli/.github/.github/workflows/presentation.yml@448cd572acf7e2464c7e56b609c0a89349b9c06b
