@@ -15,7 +15,7 @@ the shared [maintenance change flow](https://github.com/agents-tools/.github/blo
   rerun policy without replacing a validation result.
 - Pin shared workflows to the reviewed full commit and direct actions to full
   commits with version comments. Follow the shared
-  [workflow integration guide](https://github.com/agents-tools/.github/blob/master/Documentation/Reference/WorkflowIntegration.md)
+  [workflow integration guide](https://github.com/agents-tools/.github/blob/master/docs/reference/workflow-integration.md)
   when changing pins or check names.
 - The tap distributes upstream releases and has no release tags of its own.
   Formula updates follow the
