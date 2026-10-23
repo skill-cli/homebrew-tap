@@ -13,9 +13,7 @@ the shared [maintenance change flow](https://github.com/agents-tools/.github/blo
 - Preserve the exact required contexts `policy / policy` and `homebrew / homebrew`.
   Keep source policy separate from Homebrew validation so title-only edits
   rerun policy without replacing a validation result.
-- Pin shared workflows and actions to full commits. During integration use
-  `0000000000000000000000000000000000000000` without version comments;
-  the release orchestrator replaces these with the release commit.
+- Pin shared workflows and actions to full commit SHAs.
 - The tap distributes upstream releases and has no release tags of its own.
   Formula updates follow the
   [skill release checklist](https://github.com/skill-cli/cli/blob/master/Documentation/Reference/Release.md).
