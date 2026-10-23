@@ -10,17 +10,14 @@ the shared [maintenance change flow](https://github.com/agents-tools/.github/blo
   `git diff --check origin/master`. Formula changes also require source
   installation and `brew test` as described in the README.
 - Run `actionlint`, or parse every workflow as YAML, for workflow changes.
-- Preserve the exact required contexts `policy / policy` and `homebrew`.
+- Preserve the exact required contexts `policy / policy` and `homebrew / homebrew`.
   Keep source policy separate from Homebrew validation so title-only edits
   rerun policy without replacing a validation result.
-- Pin shared workflows to the reviewed full commit and direct actions to full
-  commits with version comments. Follow the shared
-  [workflow integration guide](https://github.com/agents-tools/.github/blob/master/docs/reference/workflow-integration.md)
-  when changing pins or check names.
+- Pin shared workflows and actions to full commit SHAs.
 - The tap distributes upstream releases and has no release tags of its own.
   Formula updates follow the
   [skill release checklist](https://github.com/skill-cli/cli/blob/master/Documentation/Reference/Release.md).
-- Check the committed social preview with the `skill-cli/.github` standard
-  pinned by `presentation` in CI; the README owns its local render/check loop.
-  Keep caller ID `presentation` without inputs or dependencies. Its required
-  context is activated only after a passing real PR run.
+- Render and check the committed social preview locally with the
+  github-readme-design toolchain against `skill-cli/.github`'s DESIGN, fonts
+  and catalog. Follow the README's input mapping and linked renderer commands;
+  review and commit the resulting image.

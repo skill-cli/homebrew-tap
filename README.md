@@ -83,6 +83,7 @@ installed `skill-cli/tap` checkout alone:
 ```sh
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_FROM_API=1
+export HOMEBREW_NO_ANALYTICS=1
 tap_directory="$(brew --repository)/Library/Taps/skill-cli/homebrew-local"
 test ! -e "$tap_directory" && test ! -L "$tap_directory" || exit 1
 mkdir -p "$(dirname "$tap_directory")"
@@ -104,40 +105,28 @@ CI runs on branch pushes and pull requests. The `homebrew` job on macOS checks
 style and strict audit for every `Formula/*.rb`; a pull request changing a
 formula also builds it from source and runs its tests. Homebrew CI can be run
 manually. Source policy runs separately, including on pull request title edits.
-The required contexts are `policy / policy` and `homebrew`, as declared in
+The required contexts are `policy / policy` and `homebrew / homebrew`, as declared in
 [family maintenance](https://github.com/agents-tools/.github/blob/master/MAINTENANCE.md#activation-and-required-checks).
 
 ## Social preview
 
-CI also calls `skill-cli/.github`'s presentation workflow from job
-`presentation`, with no inputs or dependencies. It compares the committed
-[social preview](.github/assets/social-preview/social-preview.png) with a fresh
-render from that standard's DESIGN, fonts and catalog at its workflow pin. The
-icon is the catalog's light-page image, resolved to the standard's
-`profile/assets/icon-dark.png`. The context is `presentation / presentation`; its
-required-check activation follows a passing real PR run.
+Render and check the committed
+[social preview](.github/assets/social-preview/social-preview.png) locally with
+the [github-readme-design toolchain][toolchain]. Follow its local regeneration
+and social-preview render/check instructions using reviewed toolchain and
+`skill-cli/.github` revisions. Supply these inputs from the organization standard:
 
-For local regeneration, prepare the pinned [toolchain package][toolchain] and
-the standard inputs at the CI pin as `toolchain_dir` and `standard_dir`. Keep
-temporary files outside this checkout. Then run:
+- DESIGN: `DESIGN.md`
+- Fonts: `.github/design/fonts`
+- Catalog: `profile/catalog.json`, selecting repository `homebrew-tap`
+- Light-page icon: `profile/assets/icon-dark.png`
 
-```sh
-node "$toolchain_dir/src/cli.ts" social-preview render \
-  --design "$standard_dir/DESIGN.md" --fonts "$standard_dir/.github/design/fonts" \
-  --catalog "$standard_dir/profile/catalog.json" --repository homebrew-tap \
-  --icon "$standard_dir/profile/assets/icon-dark.png" \
-  --out .github/assets/social-preview/social-preview.png
-node "$toolchain_dir/src/cli.ts" social-preview check \
-  --design "$standard_dir/DESIGN.md" --fonts "$standard_dir/.github/design/fonts" \
-  --catalog "$standard_dir/profile/catalog.json" --repository homebrew-tap \
-  --icon "$standard_dir/profile/assets/icon-dark.png" --assets .github/assets/social-preview
-```
+Render to `.github/assets/social-preview/social-preview.png` and check
+`.github/assets/social-preview`. Review the resulting image at full and
+link-preview sizes, then commit it. Keep temporary toolchain and standard inputs
+in an ignored build directory and remove them when finished.
 
-On drift, CI uploads artifact `presentation` containing `presentation.tar`.
-Extract it with `tar -xf presentation.tar -C .github/assets`, review and commit
-the PNG.
-
-[toolchain]: https://github.com/showxu/skills/blob/9e5d7268232b78f5fbef21ccfb9e3a079f2ef7e3/skills/github-readme-design/references/renderers.md#local-regeneration
+[toolchain]: https://github.com/showxu/skills/blob/master/skills/github-readme-design/references/renderers.md
 
 ## Contributing
 
