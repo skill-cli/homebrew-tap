@@ -11,11 +11,11 @@ also need a source installation and `brew test` in the disposable environment
 described by the
 [skill release checklist](https://github.com/skill-cli/cli/blob/master/Documentation/Reference/Release.md).
 Workflow edits need `actionlint` or a YAML parse of every workflow. Also run
-the [social-preview check](README.md#social-preview) using the pinned
-organization standard.
+the [social-preview check](README.md#social-preview) using reviewed toolchain and
+organization-standard revisions.
 
 Include the commands and results with the change. The required CI contexts
-are `policy / policy` and `homebrew`; see
+are `policy / policy` and `homebrew / homebrew`; see
 [family maintenance](https://github.com/agents-tools/.github/blob/master/MAINTENANCE.md#activation-and-required-checks)
 for their declaration and activation procedure. Policy checks pull request
 title edits separately from Homebrew validation. The latter runs style and
