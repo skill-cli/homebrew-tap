@@ -44,8 +44,8 @@ skill --version
 ## Install
 
 The Quick look installs the stable release selected by the formula's archive
-URL and SHA-256. Homebrew, macOS 13 (Ventura) or later, and Xcode with a Swift
-toolchain compatible with the selected source are required to build it.
+URL and SHA-256. The CLI requires macOS 15 (Sequoia) or later. Building from
+source requires Homebrew and Xcode 26.4 or later with Swift 6.3 or later.
 
 For a development build from the upstream `master` branch, use the separate
 HEAD channel:
