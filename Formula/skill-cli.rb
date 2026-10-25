@@ -1,13 +1,13 @@
 class SkillCli < Formula
   desc "Install and update agent skills, resolved to exact versions"
   homepage "https://github.com/skill-cli/cli"
-  url "https://github.com/skill-cli/cli/archive/refs/tags/v0.3.1.tar.gz"
-  sha256 "1777948c634f4c3b8dccf36c6bb7e2d2d790c761e51ad764b30415c29aa0c4eb"
+  url "https://github.com/skill-cli/cli/archive/refs/tags/v0.3.2.tar.gz"
+  sha256 "902bde0bfc74723e55f97353f2babf695adf02c054879a5e38e7b63061e49edd"
   license "MIT"
   head "https://github.com/skill-cli/cli.git", branch: "master"
 
-  depends_on xcode: :build
-  depends_on macos: :ventura
+  depends_on xcode: ["26.4", :build]
+  depends_on macos: :sequoia
 
   def install
     system "swift", "build", "-c", "release", "--disable-sandbox", "--product", "skill"
