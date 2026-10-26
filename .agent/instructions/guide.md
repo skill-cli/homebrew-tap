@@ -1,0 +1,24 @@
+---
+description: Tie skill formula updates to published releases and validate formulae, workflows and previews.
+---
+# Agent guide
+
+Read [README.md](README.md) and [CONTRIBUTING.md](CONTRIBUTING.md) first. Follow
+the shared [maintenance change flow](https://github.com/agents-tools/.github/blob/master/MAINTENANCE.md#change-flow).
+
+- Use the README's local tap loop for formula validation; a local tap still
+  downloads the public upstream source.
+- Run `brew style` and `brew audit --strict` for every `Formula/*.rb`, then
+  `git diff --check origin/master`. Formula changes also require source
+  installation and `brew test` as described in the README.
+- Run `actionlint`, or parse every workflow as YAML, for workflow changes.
+- Preserve the exact required contexts `policy / policy` and `homebrew / homebrew`.
+  Keep source policy separate from Homebrew validation so title-only edits
+  rerun policy without replacing a validation result.
+- The tap distributes upstream releases and has no release tags of its own.
+  Formula updates follow the
+  [skill release checklist](https://github.com/skill-cli/cli/blob/master/Documentation/Reference/Release.md).
+- Render and check the committed social preview locally with the
+  github-readme-design toolchain against `skill-cli/.github`'s DESIGN, fonts
+  and catalog. Follow the README's input mapping and linked renderer commands;
+  review and commit the resulting image.
